@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Bar from './pages/Bar'
-import Items from './components/Items'
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Bar from './components/Bar/Bar';
+import Items from './components/Items';
 import CartItems from './components/CartItem';
 import TestC from './components/TestC'
 
@@ -22,7 +22,7 @@ class App extends Component{
     .then(res => res.json())
     .then(json => {
       this.setState({items:json})
-    })
+    });
   }
 
   handleUpdateCart = (item) => {
@@ -49,10 +49,12 @@ class App extends Component{
           />
         </header>
         <main location={"[object Object]"} computedmatch={"[object Object]"}>
-          <Items handleUpdateCart={this.handleUpdateCart} {...this.state}/>
           <Switch>
             <Route path={'/cart'} component={CartItems}/>
-            {/* <Route path={'/'} component={() => <Items handleUpdateCart={this.handleUpdateCart}/>}/> */}
+            <Route path={'/'}
+              component={() => <Items handleUpdateCart={this.handleUpdateCart}
+              {...this.state}/>}
+            />
           </Switch>
         </main>
       </BrowserRouter>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, Route} from "react-router-dom";
-import Cart from '../components/Cart';
+import { Link } from "react-router-dom";
+import Cart from './Cart';
 
 export default function Bar(props) {
   return (
