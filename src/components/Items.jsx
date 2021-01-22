@@ -31,7 +31,7 @@ export default class Items extends Component{
       inCart.forEach(eachItem => {
         price = price + eachItem.price;
       });
-      handleUpdateCart(price, inCart.length)
+      handleUpdateCart(price.toFixed(2), inCart.length)
     })
 
     
@@ -39,9 +39,9 @@ export default class Items extends Component{
 
   render() {
     const { items } = this.state;
+    console.log(this.props);
 
     return (
-      <main location={"[object Object]"} computedmatch={"[object Object]"}>
         <ul className={"items"}>
           {items.map(item => {
             return (
@@ -59,7 +59,6 @@ export default class Items extends Component{
             )
           })}
         </ul>
-      </main>
     )
   }
 }

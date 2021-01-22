@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from "react-router-dom";
-import Header from './pages/Header/Header'
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import Bar from './pages/Bar'
 import Items from './components/Items'
+import CartItems from './components/CartItem';
+import TestC from './components/TestC'
 
 class App extends Component{
   state = {
@@ -12,7 +14,6 @@ class App extends Component{
   }
 
   handleUpdateCart = (totalPrice,itemCount) => {
-    console.log(totalPrice);
     this.setState(
       {
         cart: {
@@ -26,8 +27,16 @@ class App extends Component{
   render() {
     return (
       <BrowserRouter>
-        <Header {...this.state.cart}/>
-        <Items handleUpdateCart={this.handleUpdateCart}/>
+        <header>
+          <Bar {...this.state.cart}/>
+        </header>
+        <main location={"[object Object]"} computedmatch={"[object Object]"}>
+          {/* <Items handleUpdateCart={this.handleUpdateCart}/> */}
+          <Switch>
+            <Route path={'/cart'} component={CartItems}/>
+            <Route path={'/'} component={() => <Items handleUpdateCart={this.handleUpdateCart}/>}/>
+          </Switch>
+        </main>
       </BrowserRouter>
     );
   }
