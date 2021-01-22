@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Bar from './components/Bar/Bar';
-import Items from './components/Items';
-import CartItems from './components/CartItems';
+import Items from './components/ItemsPage';
+import CartItems from './components/CartPage/CartPage';
 // import TestC from './components/TestC'
 
 class App extends Component{
