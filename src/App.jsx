@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Bar from './components/Bar/Bar';
 import Items from './components/Items';
-import CartItems from './components/CartItem';
-import TestC from './components/TestC'
+import CartItems from './components/CartItems';
+// import TestC from './components/TestC'
 
 class App extends Component{
-  constructor(props) {
-    super(props)
-  }
   state = {
     items: [],
     inCart: []
@@ -26,9 +23,15 @@ class App extends Component{
   }
 
   handleUpdateCart = (item) => {
-    this.setState(prevState => { 
-      return {inCart:prevState.inCart.concat(item)};
-    })
+    this.setState(prevState => ({inCart:prevState.inCart.concat(item)}))
+  }
+
+  handleRemoveCartItem = (key) => {
+    this.setState(prevState => {
+      return {
+        inCart: prevState.inCart.filter((eachItem,index) => index !== key)
+      }
+    });
   }
 
   render() {
@@ -38,6 +41,7 @@ class App extends Component{
     inCart.forEach(eachItem => {
       totalPrice = totalPrice + eachItem.price;
     });
+    totalPrice = totalPrice.toFixed(2);
     
     return (
       <BrowserRouter>
@@ -50,10 +54,9 @@ class App extends Component{
         </header>
         <main location={"[object Object]"} computedmatch={"[object Object]"}>
           <Switch>
-            <Route path={'/cart'} component={CartItems}/>
+            <Route path={'/cart'} component={() => <CartItems inCart={inCart} totalPrice={totalPrice} handleRemoveCartItem={this.handleRemoveCartItem}/>}/>
             <Route path={'/'}
-              component={() => <Items handleUpdateCart={this.handleUpdateCart}
-              {...this.state}/>}
+              component={() => <Items handleUpdateCart={this.handleUpdateCart} {...this.state}/>}
             />
           </Switch>
         </main>
